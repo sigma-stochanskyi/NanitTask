@@ -7,7 +7,7 @@
     <string name="hint_date">Date</string>
     <string name="label_open_birthday">Show birthday screen</string>
     <string name="description_profile_image">Profile image</string>
-
+    <string name="title_select_birthday">Select child\'s birthday</string>
     <!-- Birthday -->
     <string name="label_birthday">Birthday</string>
 
