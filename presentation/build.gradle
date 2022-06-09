@@ -13,7 +13,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
-
+    buildFeatures {
+        viewBinding true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -49,4 +51,6 @@ dependencies {
     implementation appDependencies.lifecycleCompilerKtx
 
     implementation appDependencies.koinAndroid
+
+    implementation appDependencies.viewBindingDelegate
 }
