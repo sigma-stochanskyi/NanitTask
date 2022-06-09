@@ -30,6 +30,8 @@ android {
 }
 
 dependencies {
+    implementation project(':domain')
+
     def appDependencies = rootProject.ext.appDependencies
 
     implementation appDependencies.androidKtx
