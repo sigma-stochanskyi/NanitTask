@@ -9,3 +9,27 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    dependenciesVersions = [
+            kotlinVersion           : '1.8.0',
+            appCompatVersion        : '1.4.2',
+            materialVersion         : '1.6.1',
+            fragmentKtx             : '1.4.1',
+            navigationKtx           : '2.4.2',
+            lifecycleKtx            : '2.4.1'
+    ]
+
+    appDependencies = [
+            androidKtx              : "androidx.core:core-ktx:${dependenciesVersions.kotlinVersion}",
+            appCompat               : "androidx.appcompat:appcompat:${dependenciesVersions.appCompatVersion}",
+            material                : "com.google.android.material:material:${dependenciesVersions.materialVersion}",
+            fragmentKtx             : "androidx.fragment:fragment-ktx:${dependenciesVersions.fragmentKtx}",
+            navigationKtx           : "androidx.navigation:navigation-fragment-ktx:${dependenciesVersions.navigationKtx}",
+            navigationUIKtx         : "androidx.navigation:navigation-ui-ktx:${dependenciesVersions.navigationKtx}",
+            lifecycleKtx            : "androidx.lifecycle:lifecycle-runtime-ktx:${dependenciesVersions.lifecycleKtx}",
+            lifecycleViewModelKtx   : "androidx.lifecycle:lifecycle-viewmodel-ktx:${dependenciesVersions.lifecycleKtx}",
+            lifecycleLiveDataKtx    : "androidx.lifecycle:lifecycle-livedata-ktx:${dependenciesVersions.lifecycleKtx}",
+            lifecycleCompilerKtx    : "androidx.lifecycle:lifecycle-common-java8:${dependenciesVersions.lifecycleKtx}"
+    ]
+}
