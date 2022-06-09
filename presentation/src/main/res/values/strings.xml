@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Profile -->
+    <string name="label_profile">Profile</string>
+
+    <!-- Birthday -->
+    <string name="label_birthday">Birthday</string>
+
+</resources>
