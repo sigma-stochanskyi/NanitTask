@@ -17,7 +17,7 @@ ext {
     minSdk = 26
 
     dependenciesVersions = [
-            kotlinVersion           : '1.8.0',
+            androidKtxVersion       : '1.8.0',
             appCompatVersion        : '1.4.2',
             materialVersion         : '1.6.1',
             fragmentKtx             : '1.4.1',
@@ -27,7 +27,7 @@ ext {
     ]
 
     appDependencies = [
-            androidKtx              : "androidx.core:core-ktx:${dependenciesVersions.kotlinVersion}",
+            androidKtx              : "androidx.core:core-ktx:${dependenciesVersions.androidKtxVersion}",
             appCompat               : "androidx.appcompat:appcompat:${dependenciesVersions.appCompatVersion}",
             material                : "com.google.android.material:material:${dependenciesVersions.materialVersion}",
             fragmentKtx             : "androidx.fragment:fragment-ktx:${dependenciesVersions.fragmentKtx}",
