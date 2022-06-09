@@ -35,4 +35,5 @@ dependencies {
     def appDependencies = rootProject.ext.appDependencies
 
     implementation appDependencies.androidKtx
+    implementation appDependencies.koinAndroid
 }

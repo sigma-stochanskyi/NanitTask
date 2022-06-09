@@ -47,4 +47,6 @@ dependencies {
     implementation appDependencies.lifecycleViewModelKtx
     implementation appDependencies.lifecycleLiveDataKtx
     implementation appDependencies.lifecycleCompilerKtx
+
+    implementation appDependencies.koinAndroid
 }

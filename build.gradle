@@ -22,7 +22,8 @@ ext {
             materialVersion         : '1.6.1',
             fragmentKtx             : '1.4.1',
             navigationKtx           : '2.4.2',
-            lifecycleKtx            : '2.4.1'
+            lifecycleKtx            : '2.4.1',
+            koinVersion             : '3.2.0'
     ]
 
     appDependencies = [
@@ -35,6 +36,9 @@ ext {
             lifecycleKtx            : "androidx.lifecycle:lifecycle-runtime-ktx:${dependenciesVersions.lifecycleKtx}",
             lifecycleViewModelKtx   : "androidx.lifecycle:lifecycle-viewmodel-ktx:${dependenciesVersions.lifecycleKtx}",
             lifecycleLiveDataKtx    : "androidx.lifecycle:lifecycle-livedata-ktx:${dependenciesVersions.lifecycleKtx}",
-            lifecycleCompilerKtx    : "androidx.lifecycle:lifecycle-common-java8:${dependenciesVersions.lifecycleKtx}"
+            lifecycleCompilerKtx    : "androidx.lifecycle:lifecycle-common-java8:${dependenciesVersions.lifecycleKtx}",
+            koinAndroid             : "io.insert-koin:koin-android:${dependenciesVersions.koinVersion}",
+            koin                    : "io.insert-koin:koin-core:${dependenciesVersions.koinVersion}"
+
     ]
 }
