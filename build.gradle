@@ -11,6 +11,11 @@ task clean(type: Delete) {
 }
 
 ext {
+
+    compileSdk = 32
+    targetSdk = 32
+    minSdk = 32
+
     dependenciesVersions = [
             kotlinVersion           : '1.8.0',
             appCompatVersion        : '1.4.2',

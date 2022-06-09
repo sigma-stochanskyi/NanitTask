@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk rootProject.ext.compileSdk
 
     defaultConfig {
-        minSdk 26
-        targetSdk 32
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -35,7 +35,7 @@ dependencies {
     implementation appDependencies.androidKtx
     implementation appDependencies.fragmentKtx
 
-    implementation appDependencieAs.appCompat
+    implementation appDependencies.appCompat
     implementation appDependencies.material
 
     implementation appDependencies.navigationKtx
