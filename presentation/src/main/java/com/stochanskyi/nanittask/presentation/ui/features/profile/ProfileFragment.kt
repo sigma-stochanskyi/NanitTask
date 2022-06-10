@@ -8,6 +8,8 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import coil.load
+import coil.request.CachePolicy
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.stochanskyi.nanittask.androidcore.data.files.AppFileProvider
 import com.stochanskyi.nanittask.androidcore.data.textformatter.TextFormatter
@@ -33,7 +35,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val fileProvider: AppFileProvider by inject()
 
-    private var cameraUri: String? = null
+    private var cameraUri: Uri? = null
 
     private val getOrPickImageContract: TakeOrPickImageContract by inject { parametersOf(R.string.title_pick_image) }
 
@@ -60,8 +62,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             model.openBirthday()
         }
         image.setOnClickListener {
-            val cameraUri = fileProvider.cameraImageFile().uriWithFileProvider(requireContext())
-            getOrPickImage.launch(cameraUri)
+            openImagePicker()
         }
     }
 
@@ -77,6 +78,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 it?.let { textFormatter.formatMillisToFullString(it) } ?: ""
             )
         }
+        imageUriLiveData.observe(viewLifecycleOwner) {
+            setImage(it)
+        }
     }
 
     private fun openCalendarDialog() {
@@ -90,10 +94,27 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         picker.show(childFragmentManager, DATE_PICKER_DIALOG_TAG)
     }
 
+    private fun openImagePicker() {
+        cameraUri = fileProvider.cameraImageFile().uriWithFileProvider(requireContext())
+            .also { getOrPickImage.launch(it) }
+    }
+
     private fun onImagePickResult(result: Result<Uri?>?) {
         val uri = result?.getOrNull() ?: cameraUri ?: return
 
         model.setImageUri(uri.toString())
+    }
+
+    private fun setImage(imageUri: String) {
+        val uri = Uri.parse(imageUri)
+
+        binding.image.load(uri) {
+            lifecycle(viewLifecycleOwner)
+            fallback(R.drawable.ic_profile_image_placeholder)
+            placeholder(R.drawable.ic_profile_image_placeholder)
+            error(R.drawable.ic_profile_image_placeholder)
+            memoryCachePolicy(CachePolicy.DISABLED)
+        }
     }
 
     private fun openBirthdayScreen() {
