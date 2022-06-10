@@ -1,5 +1,6 @@
 package com.stochanskyi.nanittask.presentation.ui.features.profile
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isInvisible
@@ -8,11 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.stochanskyi.nanittask.androidcore.data.files.AppFileProvider
 import com.stochanskyi.nanittask.androidcore.data.textformatter.TextFormatter
 import com.stochanskyi.nanittask.presentation.R
 import com.stochanskyi.nanittask.presentation.databinding.FragmentProfileBinding
+import com.stochanskyi.nanittask.presentation.utils.activity_contracts.TakeOrPickImageContract
+import com.stochanskyi.nanittask.presentation.utils.uriWithFileProvider
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -25,6 +30,16 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val model: ProfileViewModel by viewModel()
 
     private val textFormatter by inject<TextFormatter>()
+
+    private val fileProvider: AppFileProvider by inject()
+
+    private var cameraUri: String? = null
+
+    private val getOrPickImageContract: TakeOrPickImageContract by inject { parametersOf(R.string.title_pick_image) }
+
+    private val getOrPickImage =registerForActivityResult(getOrPickImageContract) {
+            onImagePickResult(it)
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViews()
@@ -43,6 +58,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         buttonShowBirthday.setOnClickListener {
             model.openBirthday()
+        }
+        image.setOnClickListener {
+            val cameraUri = fileProvider.cameraImageFile().uriWithFileProvider(requireContext())
+            getOrPickImage.launch(cameraUri)
         }
     }
 
@@ -69,6 +88,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             model.setDate(it)
         }
         picker.show(childFragmentManager, DATE_PICKER_DIALOG_TAG)
+    }
+
+    private fun onImagePickResult(result: Result<Uri?>?) {
+        val uri = result?.getOrNull() ?: cameraUri ?: return
+
+        model.setImageUri(uri.toString())
     }
 
     private fun openBirthdayScreen() {

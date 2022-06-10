@@ -10,6 +10,7 @@ import java.time.LocalDate
 abstract class ProfileViewModel : ViewModel() {
 
     abstract val birthdayLiveData: LiveData<LocalDate?>
+    abstract val imageUriLiveData: LiveData<String>
 
     abstract val openBirthdayEnabledLiveData: LiveData<Boolean>
     abstract val openBirthdayLiveData: LiveData<Unit>
@@ -26,7 +27,8 @@ class ProfileViewModelImpl : ProfileViewModel() {
     private var date: LocalDate? = null
     private var imageUri: String = ""
 
-    override val birthdayLiveData = MutableLiveData<LocalDate?>()
+    override val birthdayLiveData = MutableLiveData<LocalDate?>(date)
+    override val imageUriLiveData = MutableLiveData<String>(imageUri)
 
     override val openBirthdayEnabledLiveData = MutableLiveData(false)
     override val openBirthdayLiveData = SingleLiveAction()
@@ -44,6 +46,7 @@ class ProfileViewModelImpl : ProfileViewModel() {
 
     override fun setImageUri(uri: String) {
         this.imageUri = uri
+        imageUriLiveData.value = uri
         updateBirthdayEnabled()
     }
 
