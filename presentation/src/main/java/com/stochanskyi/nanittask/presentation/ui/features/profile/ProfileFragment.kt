@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import coil.request.CachePolicy
-import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.*
 import com.stochanskyi.nanittask.androidcore.data.files.AppFileProvider
 import com.stochanskyi.nanittask.androidcore.data.textformatter.TextFormatter
 import com.stochanskyi.nanittask.presentation.R
@@ -23,6 +23,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.time.LocalDate
+import java.util.*
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -95,12 +96,44 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun openCalendarDialog() {
         val picker = MaterialDatePicker.Builder.datePicker()
             .setTitleText(getString(R.string.title_select_birthday))
+            .setCalendarConstraints(createDatePickerConstraints())
             .build()
 
         picker.addOnPositiveButtonClickListener {
             model.setDate(it)
         }
         picker.show(childFragmentManager, DATE_PICKER_DIALOG_TAG)
+    }
+
+    private fun createDatePickerConstraints(): CalendarConstraints {
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        calendar.timeInMillis = today
+        setCalendarAtStartOfDay(calendar)
+        val max = calendar.timeInMillis
+
+        calendar.add(Calendar.YEAR, -4)
+        val min = calendar.timeInMillis
+
+        val validator = CompositeDateValidator.allOf(
+            listOf(
+                DateValidatorPointForward.from(min),
+                DateValidatorPointBackward.before(max),
+            )
+        )
+
+        return CalendarConstraints.Builder()
+            .setStart(min)
+            .setEnd(max)
+            .setValidator(validator)
+            .build()
+    }
+
+    private fun setCalendarAtStartOfDay(calendar: Calendar) {
+        calendar[Calendar.MILLISECOND] = 0
+        calendar[Calendar.SECOND] = 0
+        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.HOUR] = 0
     }
 
     private fun openImagePicker() {
