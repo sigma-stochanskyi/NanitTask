@@ -24,7 +24,8 @@ ext {
             navigationKtx                   : '2.4.2',
             lifecycleKtx                    : '2.4.1',
             koinVersion                     : '3.2.0',
-            viewBindingDelegateVersion      : '1.5.6'
+            viewBindingDelegateVersion      : '1.5.6',
+            coilVersion                     : '2.1.0'
     ]
 
     appDependencies = [
@@ -40,7 +41,7 @@ ext {
             lifecycleCompilerKtx    : "androidx.lifecycle:lifecycle-common-java8:${dependenciesVersions.lifecycleKtx}",
             koinAndroid             : "io.insert-koin:koin-android:${dependenciesVersions.koinVersion}",
             koin                    : "io.insert-koin:koin-core:${dependenciesVersions.koinVersion}",
-            viewBindingDelegate     : "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${dependenciesVersions.viewBindingDelegateVersion}"
-
+            viewBindingDelegate     : "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${dependenciesVersions.viewBindingDelegateVersion}",
+            coil                    : "io.coil-kt:coil:${dependenciesVersions.coilVersion}"
     ]
 }

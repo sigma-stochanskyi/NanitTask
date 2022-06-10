@@ -54,4 +54,6 @@ dependencies {
     implementation appDependencies.koinAndroid
 
     implementation appDependencies.viewBindingDelegate
+
+    implementation appDependencies.coil
 }
