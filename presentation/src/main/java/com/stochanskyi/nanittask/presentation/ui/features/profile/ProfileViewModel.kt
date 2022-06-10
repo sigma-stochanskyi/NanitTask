@@ -28,7 +28,7 @@ class ProfileViewModelImpl : ProfileViewModel() {
     private var imageUri: String = ""
 
     override val birthdayLiveData = MutableLiveData<LocalDate?>(date)
-    override val imageUriLiveData = MutableLiveData<String>(imageUri)
+    override val imageUriLiveData = MutableLiveData(imageUri)
 
     override val openBirthdayEnabledLiveData = MutableLiveData(false)
     override val openBirthdayLiveData = SingleLiveAction()
