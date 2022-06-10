@@ -1,4 +1,4 @@
-package com.stochanskyi.nanittask.domain
+package com.stochanskyi.nanittask.domain.di
 
 import org.koin.dsl.module
 

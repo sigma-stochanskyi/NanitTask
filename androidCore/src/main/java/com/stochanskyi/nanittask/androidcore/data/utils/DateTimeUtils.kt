@@ -10,4 +10,4 @@ fun utcLocalDate(millis: Long): LocalDate {
         .toLocalDate()
 }
 
-fun utcZoneId() = ZoneId.of("UTC")
+fun utcZoneId(): ZoneId? = ZoneId.of("UTC")
