@@ -1,5 +1,6 @@
 package com.stochanskyi.nanittask.presentation.ui.features.profile
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -16,10 +17,12 @@ import com.stochanskyi.nanittask.androidcore.data.textformatter.TextFormatter
 import com.stochanskyi.nanittask.presentation.R
 import com.stochanskyi.nanittask.presentation.databinding.FragmentProfileBinding
 import com.stochanskyi.nanittask.presentation.utils.activity_contracts.TakeOrPickImageContract
+import com.stochanskyi.nanittask.presentation.utils.setTextIfChanged
 import com.stochanskyi.nanittask.presentation.utils.uriWithFileProvider
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import java.time.LocalDate
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -42,6 +45,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val getOrPickImage =registerForActivityResult(getOrPickImageContract) {
             onImagePickResult(it)
         }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        model.loadProfile()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViews()
@@ -73,10 +81,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         openBirthdayLiveData.observe(viewLifecycleOwner) {
             openBirthdayScreen()
         }
+        nameLiveData.observe(viewLifecycleOwner) {
+            binding.editTextName.setTextIfChanged(it)
+        }
         birthdayLiveData.observe(viewLifecycleOwner) {
-            binding.editTextDate.setText(
-                it?.let { textFormatter.formatMillisToFullString(it) } ?: ""
-            )
+            setDate(it)
         }
         imageUriLiveData.observe(viewLifecycleOwner) {
             setImage(it)
@@ -105,8 +114,16 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         model.setImageUri(uri.toString())
     }
 
-    private fun setImage(imageUri: String) {
-        val uri = Uri.parse(imageUri)
+    private fun setDate(date: LocalDate?) {
+        val formattedDate = date?.let {
+            textFormatter.formatMillisToFullString(it)
+        } ?: ""
+
+        binding.editTextDate.setText(formattedDate)
+    }
+
+    private fun setImage(imageUri: String?) {
+        val uri = imageUri?.let { Uri.parse(imageUri) }
 
         binding.image.load(uri) {
             lifecycle(viewLifecycleOwner)

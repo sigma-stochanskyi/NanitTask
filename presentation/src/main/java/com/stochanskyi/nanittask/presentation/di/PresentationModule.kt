@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 val PresentationModule = module {
 
-    viewModel<ProfileViewModel> { ProfileViewModelImpl() }
+    viewModel<ProfileViewModel> { ProfileViewModelImpl(get(), get()) }
 
     factory { (titleRes: Int) ->
         TakeOrPickImageContract(
