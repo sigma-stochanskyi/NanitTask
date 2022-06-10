@@ -7,7 +7,6 @@ import com.stochanskyi.nanittask.androidcore.data.textformatter.TextFormatterImp
 import com.stochanskyi.nanittask.data.storage.ProfileDataStorage
 import com.stochanskyi.nanittask.data.storage.ProfileDataStorageImpl
 import org.koin.dsl.module
-import java.net.DatagramSocketImpl
 
 val DataModule = module {
 

@@ -2,7 +2,6 @@ package com.stochanskyi.nanittask.data.storage
 
 import android.content.Context
 import androidx.core.content.edit
-import java.util.prefs.Preferences
 
 interface ProfileDataStorage {
     fun setProfileName(name: String)

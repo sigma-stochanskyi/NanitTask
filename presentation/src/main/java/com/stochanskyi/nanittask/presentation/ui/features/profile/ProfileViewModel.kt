@@ -16,7 +16,7 @@ abstract class ProfileViewModel : ViewModel() {
     abstract val birthdayLiveData: LiveData<LocalDate?>
     abstract val imageUriLiveData: LiveData<String?>
 
-    abstract val openBirthdayEnabledLiveData: LiveData<Boolean>
+    abstract val isOpenBirthdayEnabledLiveData: LiveData<Boolean>
     abstract val openBirthdayLiveData: LiveData<Unit>
 
     abstract fun loadProfile()
@@ -24,6 +24,7 @@ abstract class ProfileViewModel : ViewModel() {
     abstract fun setName(name: String?)
     abstract fun setDate(dateMillis: Long)
     abstract fun setImageUri(uri: String?)
+
     abstract fun openBirthday()
 }
 
@@ -40,29 +41,26 @@ class ProfileViewModelImpl(
     override val birthdayLiveData = MutableLiveData<LocalDate?>(date)
     override val imageUriLiveData = MutableLiveData(imageUri)
 
-    override val openBirthdayEnabledLiveData = MutableLiveData(false)
+    override val isOpenBirthdayEnabledLiveData = MutableLiveData(false)
     override val openBirthdayLiveData = SingleLiveAction()
 
-    override fun setName(name: String?) {
+    override fun setName(name: String?) = updateProfileParam {
         this.name = name
         nameLiveData.value = name
-        updateBirthdayEnabled()
     }
 
     override fun setDate(dateMillis: Long) {
         setDate(utcLocalDate(dateMillis))
     }
 
-    private fun setDate(date: LocalDate?) {
+    private fun setDate(date: LocalDate?) = updateProfileParam {
         this.date = date
         birthdayLiveData.value = date
-        updateBirthdayEnabled()
     }
 
-    override fun setImageUri(uri: String?) {
+    override fun setImageUri(uri: String?) = updateProfileParam {
         this.imageUri = uri
         imageUriLiveData.value = uri
-        updateBirthdayEnabled()
     }
 
     override fun openBirthday() {
@@ -88,10 +86,15 @@ class ProfileViewModelImpl(
         )
     }
 
+    private inline fun updateProfileParam(updateBlock: () -> Unit) {
+        updateBlock()
+        updateBirthdayEnabled()
+    }
+
     private fun updateBirthdayEnabled() {
         val isBirthdayEnabled = name?.isNotBlank() == true &&
             date != null
 
-        openBirthdayEnabledLiveData.value = isBirthdayEnabled
+        isOpenBirthdayEnabledLiveData.value = isBirthdayEnabled
     }
 }

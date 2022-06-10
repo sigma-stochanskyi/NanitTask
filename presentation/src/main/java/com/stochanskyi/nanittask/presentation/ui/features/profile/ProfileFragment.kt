@@ -75,7 +75,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun observeModel() = with(model) {
-        openBirthdayEnabledLiveData.observe(viewLifecycleOwner) {
+        isOpenBirthdayEnabledLiveData.observe(viewLifecycleOwner) {
             binding.buttonShowBirthday.isInvisible = !it
         }
         openBirthdayLiveData.observe(viewLifecycleOwner) {
