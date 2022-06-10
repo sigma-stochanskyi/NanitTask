@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingHorizontal="30dp">
@@ -20,9 +21,11 @@
         android:layout_weight="1" />
 
     <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.NanitTask.Circle"
         android:id="@+id/image"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:scaleType="centerCrop"
         tools:src="@drawable/ic_profile_image_placeholder" />
 
     <com.google.android.material.textfield.TextInputLayout
