@@ -10,12 +10,9 @@ class ProfileRepositoryImpl(
 ) : ProfileRepository {
 
     override fun setProfile(profile: Profile) {
-        profile.name?.let {
-            storage.setProfileName(it)
-        }
-        profile.birthday?.toString()?.let {
-            storage.setBirthday(it)
-        }
+        storage.setProfileName(profile.name)
+        storage.setBirthday(profile.birthday.toString())
+
         profile.imageUri?.let {
             storage.setProfileImageUri(it)
         }
@@ -25,10 +22,10 @@ class ProfileRepositoryImpl(
         storage.setProfileImageUri(image)
     }
 
-    override fun getProfile(): Profile {
+    override fun getProfile(): Profile? {
         return Profile(
-            name = storage.getProfileName(),
-            birthday = storage.getBirthday()?.let { LocalDate.parse(storage.getBirthday()) },
+            name = storage.getProfileName() ?: return null,
+            birthday = LocalDate.parse(storage.getBirthday() ?: return null),
             imageUri = storage.getProfileImageUri()
         )
     }

@@ -64,24 +64,24 @@ class ProfileViewModelImpl(
     }
 
     override fun openBirthday() {
-        val profile = createProfile()
+        val profile = createProfile() ?: return
         setProfileUseCase(profile)
 
         openBirthdayLiveData.call()
     }
 
     override fun loadProfile() {
-        val profile = getProfileUseCase()
+        val profile = getProfileUseCase() ?: return
 
         setName(profile.name)
         setDate(profile.birthday)
         setImageUri(profile.imageUri)
     }
 
-    private fun createProfile(): Profile {
+    private fun createProfile(): Profile? {
         return Profile(
-            name = name,
-            birthday = date,
+            name = name ?: return null,
+            birthday = date ?: return null,
             imageUri = imageUri
         )
     }

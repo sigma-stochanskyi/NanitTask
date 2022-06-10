@@ -6,5 +6,5 @@ interface ProfileRepository {
     fun setProfile(profile: Profile)
     fun setProfileImageUri(image: String)
 
-    fun getProfile(): Profile
+    fun getProfile(): Profile?
 }
