@@ -4,6 +4,8 @@
     <style name="ShapeAppearance.NanitTask.Circle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+        <item name="strokeWidth">20dp</item>
+        <item name="strokeColor">@color/black</item>
     </style>
 
     <style name="AppButton.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -12,4 +14,35 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="AppButton.Rounded" parent="Widget.MaterialComponents.Button">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingStart">22dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="fontFamily">@font/source_sans_pro_regular</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.NanitTask.Circle</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.TextView.Custom">
+        <item name="android:textColor">@color/text</item>
+        <item name="fontFamily">@font/source_sans_pro_regular</item>
+    </style>
+    
+    <style name="BirthdayText" parent="Widget.MaterialComponents.TextView.Custom">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamily">@font/source_sans_pro_semi_bold</item>
+    </style>
+
+    <style name="BirthdayCameraImage" parent="Widget.MaterialComponents.ShapeableImageView">
+        <item name="contentPaddingTop">8dp</item>
+        <item name="contentPaddingBottom">7dp</item>
+        <item name="contentPaddingStart">9dp</item>
+        <item name="contentPaddingEnd">4dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.NanitTask.Circle</item>
+    </style>
+    
 </resources>
