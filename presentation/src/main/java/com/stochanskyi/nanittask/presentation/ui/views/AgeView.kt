@@ -30,7 +30,6 @@ class AgeView @JvmOverloads constructor(
 
     init {
         initAttrs(attrs)
-        setAge(12)
     }
 
     fun setAge(age: Int) {
