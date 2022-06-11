@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_left_swirls"
+        android:contentDescription="@string/description_left_swirls"
         app:layout_constraintTop_toTopOf="@id/view_age"
         app:layout_constraintBottom_toBottomOf="@id/view_age"
         app:layout_constraintEnd_toStartOf="@id/view_age" />
@@ -58,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:src="@drawable/ic_right_swirls"
+        android:contentDescription="@string/description_right_swirls"
         app:layout_constraintTop_toTopOf="@id/view_age"
         app:layout_constraintBottom_toBottomOf="@id/view_age"
         app:layout_constraintStart_toEndOf="@id/view_age" />
@@ -104,15 +106,16 @@
         tools:strokeColor="@color/birthday_background_blue_darker"
         tools:src="@drawable/ic_profile_placeholder_blue" />
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.google.android.material.button.MaterialButton
         style="@style/BirthdayCameraImage"
+        android:id="@+id/image_camera"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@color/birthday_background_blue_darker"
-        android:src="@drawable/ic_camera"
+        app:icon="@drawable/ic_camera"
         app:layout_constraintCircle="@id/image_profile"
         app:layout_constraintCircleAngle="45"
-        tools:layout_constraintCircleRadius="130dp" />
+        tools:layout_constraintCircleRadius="130dp"
+        tools:backgroundTint="@color/birthday_background_blue_darker"/>
 
     <ImageView
         android:id="@+id/image_logo"

@@ -4,8 +4,6 @@
     <style name="ShapeAppearance.NanitTask.Circle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
-        <item name="strokeWidth">20dp</item>
-        <item name="strokeColor">@color/black</item>
     </style>
 
     <style name="AppButton.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -37,11 +35,19 @@
         <item name="fontFamily">@font/source_sans_pro_semi_bold</item>
     </style>
 
-    <style name="BirthdayCameraImage" parent="Widget.MaterialComponents.ShapeableImageView">
-        <item name="contentPaddingTop">8dp</item>
-        <item name="contentPaddingBottom">7dp</item>
-        <item name="contentPaddingStart">9dp</item>
-        <item name="contentPaddingEnd">4dp</item>
+    <style name="BirthdayCameraImage" parent="Widget.Material3.Button.Icon">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconSize">0dp</item>
+
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:paddingStart">9dp</item>
+        <item name="android:paddingRight">4dp</item>
+
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.NanitTask.Circle</item>
     </style>
     

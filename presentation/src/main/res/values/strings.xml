@@ -19,5 +19,7 @@
     <string name="label_share">Share the news</string>
     <string name="description_background_image">Backgroud image</string>
     <string name="description_logo">Logo</string>
+    <string name="description_left_swirls">Left swirls</string>
+    <string name="description_right_swirls">Right swirls</string>
 
 </resources>
