@@ -32,16 +32,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Today Cristiano Ronaldo is" />
 
-    <ImageView
+    <com.stochanskyi.nanittask.presentation.ui.views.AgeView
         android:id="@+id/view_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
+        app:spacing="5dp"
         app:layout_constraintTop_toBottomOf="@id/text_title"
         app:layout_constraintBottom_toTopOf="@id/text_age_unit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@drawable/ic_age_1" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:layout_width="wrap_content"
