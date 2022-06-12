@@ -4,7 +4,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -106,18 +105,6 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
         val loader = imageLoader ?: requireContext().imageLoader
         binding.imageProfile.load(uri, loader) {
             lifecycle(viewLifecycleOwner)
-            listener(
-                onSuccess = { _, _ ->
-                    setIsCameraImageVisible(false)
-                },
-                onError = { _, _ ->
-                    setIsCameraImageVisible(true)
-                }
-            )
         }
-    }
-
-    private fun setIsCameraImageVisible(isVisible: Boolean) {
-        binding.imageCamera.isVisible = isVisible
     }
 }
