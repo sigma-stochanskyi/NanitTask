@@ -9,14 +9,15 @@ import com.stochanskyi.nanittask.domain.feature.profile.model.Age
 import com.stochanskyi.nanittask.presentation.R
 import com.stochanskyi.nanittask.presentation.ui.features.birthday.appearance.BirthdayViewAppearance
 import com.stochanskyi.nanittask.presentation.ui.features.birthday.appearance.BirthdayViewAppearancesDefinition
-import com.stochanskyi.nanittask.presentation.ui.features.birthday.model.BirthdayInfoViewData
+import com.stochanskyi.nanittask.presentation.ui.features.birthday.model.AgeInfoViewData
 
 abstract class BirthdayViewModel : ViewModel() {
 
     abstract val viewAppearanceLiveData: LiveData<BirthdayViewAppearance>
 
-    abstract val birthdayInfoLiveData: LiveData<BirthdayInfoViewData>
-
+    abstract val nameLiveData: LiveData<String>
+    abstract val ageInfoLiveData: LiveData<AgeInfoViewData>
+    abstract val imageLiveData: LiveData<String?>
 }
 
 class BirthdayViewModelImpl(
@@ -26,8 +27,10 @@ class BirthdayViewModelImpl(
 ) : BirthdayViewModel() {
 
     override val viewAppearanceLiveData = MutableLiveData<BirthdayViewAppearance>()
+    override val nameLiveData = MutableLiveData<String>()
 
-    override val birthdayInfoLiveData = MutableLiveData<BirthdayInfoViewData>()
+    override val ageInfoLiveData = MutableLiveData<AgeInfoViewData>()
+    override val imageLiveData = MutableLiveData<String>()
 
     init {
         setupViewAppearance()
@@ -42,14 +45,17 @@ class BirthdayViewModelImpl(
         val profile = getProfileUseCase() ?: return
         val age = calculateAgeUseCase(profile.birthday)
 
-        val viewData = BirthdayInfoViewData(
-            name = profile.name,
+        nameLiveData.value = profile.name
+        imageLiveData.value = profile.imageUri
+
+        updateBirthdayData(age)
+    }
+
+    private fun updateBirthdayData(age: Age) {
+        ageInfoLiveData.value = AgeInfoViewData(
             ageValue = age.getValue(),
             ageUnitPluralRes = age.getUnitStringRes(),
-            imageUri = profile.imageUri
         )
-
-        birthdayInfoLiveData.value = viewData
     }
 
     private fun Age.getValue(): Int {

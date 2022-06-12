@@ -15,7 +15,7 @@ import com.stochanskyi.nanittask.androidcore.data.utils.toRadians
 import com.stochanskyi.nanittask.presentation.R
 import com.stochanskyi.nanittask.presentation.databinding.FragmentBirthdayBinding
 import com.stochanskyi.nanittask.presentation.ui.features.birthday.appearance.BirthdayViewAppearance
-import com.stochanskyi.nanittask.presentation.ui.features.birthday.model.BirthdayInfoViewData
+import com.stochanskyi.nanittask.presentation.ui.features.birthday.model.AgeInfoViewData
 import com.stochanskyi.nanittask.presentation.utils.addSimpleOnLayoutChangeListener
 import com.stochanskyi.nanittask.presentation.utils.insets.onApplyDispatchInsetsToAllChildren
 import com.stochanskyi.nanittask.presentation.utils.insets.onApplyDispatchInsetsWithMargins
@@ -71,8 +71,14 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
         viewAppearanceLiveData.observe(viewLifecycleOwner) {
             it.apply()
         }
-        birthdayInfoLiveData.observe(viewLifecycleOwner) {
-            setBirthdayData(it)
+        nameLiveData.observe(viewLifecycleOwner) {
+            setName(it)
+        }
+        ageInfoLiveData.observe(viewLifecycleOwner) {
+            setAgeIngo(it)
+        }
+        imageLiveData.observe(viewLifecycleOwner) {
+            setProfileImage(it)
         }
     }
 
@@ -95,9 +101,11 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
         )
     }
 
-    private fun setBirthdayData(data: BirthdayInfoViewData) = with(binding) {
-        textTitle.text = getString(R.string.birthday_name_pattern, data.name)
+    private fun setName(name: String) {
+        binding.textTitle.text = getString(R.string.birthday_name_pattern, name)
+    }
 
+    private fun setAgeIngo(data: AgeInfoViewData) = with(binding) {
         viewAge.setAge(data.ageValue)
 
         textAgeUnit.text = resources.getQuantityString(
@@ -105,13 +113,12 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
             data.ageValue,
             data.ageValue
         )
-
-        loadProfileImage(data.imageUri)
     }
 
-    private fun loadProfileImage(uriString: String?) {
+    private fun setProfileImage(uriString: String?) {
         val uri = uriString?.let { Uri.parse(it) } ?: return
         val loader = imageLoader ?: requireContext().imageLoader
+
         binding.imageProfile.load(uri, loader) {
             lifecycle(viewLifecycleOwner)
         }
