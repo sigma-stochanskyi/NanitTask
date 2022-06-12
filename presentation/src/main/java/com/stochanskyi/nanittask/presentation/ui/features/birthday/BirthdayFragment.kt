@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.ImageLoader
@@ -92,8 +93,26 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
             data.ageValue
         )
 
-        val uri = data.imageUri?.let { Uri.parse(it) } ?: ""
+        loadProfileImage(data.imageUri)
+    }
+
+    private fun loadProfileImage(uriString: String?) {
+        val uri = uriString?.let { Uri.parse(it) } ?: return
         val loader = imageLoader ?: requireContext().imageLoader
-        imageProfile.load(uri, loader)
+        binding.imageProfile.load(uri, loader) {
+            lifecycle(viewLifecycleOwner)
+            listener(
+                onSuccess = { _, _ ->
+                    setIsCameraImageVisible(false)
+                },
+                onError = { _, _ ->
+                    setIsCameraImageVisible(true)
+                }
+            )
+        }
+    }
+
+    private fun setIsCameraImageVisible(isVisible: Boolean) {
+        binding.imageCamera.isVisible = isVisible
     }
 }
