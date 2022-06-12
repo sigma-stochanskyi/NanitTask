@@ -74,7 +74,7 @@ class AgeView @JvmOverloads constructor(
         if (!changed) return
 
         val scaleValue = (height - paddingTop - paddingBottom).toFloat() /
-            digitDrawables.maxOf { it.intrinsicHeight }
+            (digitDrawables.maxOfOrNull { it.intrinsicHeight } ?: 1)
 
         var previousLeft = paddingStart
 
