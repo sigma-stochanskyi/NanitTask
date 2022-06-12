@@ -19,3 +19,11 @@ fun Context.createGalleryPickerIntent(): Intent {
         .apply { type = "image/*" }
 }
 
+fun Context.launchSendIntent(image: Uri) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "image/*"
+        putExtra(Intent.EXTRA_STREAM, image)
+    }
+
+    startActivity(Intent.createChooser(intent, "Share Image"))
+}

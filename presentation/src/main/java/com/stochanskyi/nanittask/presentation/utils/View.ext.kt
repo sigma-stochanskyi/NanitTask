@@ -1,9 +1,11 @@
 package com.stochanskyi.nanittask.presentation.utils
 
+import android.graphics.Bitmap
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.drawToBitmap
 import androidx.core.view.updateLayoutParams
 
 fun View.isFixedSize(widthMeasureSpec: Int, heightMeasureSpec: Int): Boolean {
@@ -51,4 +53,21 @@ inline fun ViewGroup.onChildAddedListener(
         override fun onChildViewRemoved(parent: View?, child: View?) = Unit
 
     })
+}
+
+fun View.drawToBitmapWithExcludingInvisible(excludedViews: List<View>
+): Bitmap {
+    val previousVisibilities = excludedViews.associateWith { it.visibility }
+
+    excludedViews.forEach { view ->
+        view.visibility = View.INVISIBLE
+    }
+
+    val bitmap = drawToBitmap()
+
+    previousVisibilities.forEach { (view, visibility) ->
+        view.visibility = visibility
+    }
+
+    return bitmap
 }

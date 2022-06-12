@@ -7,6 +7,26 @@
     android:layout_height="match_parent"
     tools:background="@color/birthday_background_blue">
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_profile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:padding="4dp"
+        android:scaleType="centerCrop"
+        app:strokeWidth="8dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.NanitTask.Circle"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:layout_constraintBottom_toTopOf="@id/image_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:strokeColor="@color/birthday_background_blue_darker"
+        tools:src="@drawable/ic_profile_placeholder_blue" />
+
     <ImageView
         android:id="@+id/image_background"
         android:layout_width="match_parent"
@@ -98,27 +118,6 @@
         app:barrierDirection="top"
         app:barrierMargin="-20dp"
         app:constraint_referenced_ids="image_profile" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/image_profile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:padding="4dp"
-        android:scaleType="centerCrop"
-        android:translationZ="-1dp"
-        app:strokeWidth="8dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.NanitTask.Circle"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constraintTop_toBottomOf="@id/barrier"
-        app:layout_constraintBottom_toTopOf="@id/image_logo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:strokeColor="@color/birthday_background_blue_darker"
-        tools:src="@drawable/ic_profile_placeholder_blue" />
 
     <com.google.android.material.button.MaterialButton
         style="@style/ImageButton.BirthdayCameraImage"

@@ -1,5 +1,6 @@
 package com.stochanskyi.nanittask.presentation.ui.features.birthday
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -12,17 +13,16 @@ import coil.imageLoader
 import coil.load
 import coil.request.CachePolicy
 import com.stochanskyi.nanittask.androidcore.data.files.AppFileProvider
+import com.stochanskyi.nanittask.androidcore.data.files.writeBitmap
 import com.stochanskyi.nanittask.androidcore.data.utils.toRadians
 import com.stochanskyi.nanittask.presentation.R
 import com.stochanskyi.nanittask.presentation.databinding.FragmentBirthdayBinding
 import com.stochanskyi.nanittask.presentation.ui.features.birthday.appearance.BirthdayViewAppearance
 import com.stochanskyi.nanittask.presentation.ui.features.birthday.model.AgeInfoViewData
+import com.stochanskyi.nanittask.presentation.utils.*
 import com.stochanskyi.nanittask.presentation.utils.activity_contracts.TakeOrPickImageContract
-import com.stochanskyi.nanittask.presentation.utils.addSimpleOnLayoutChangeListener
 import com.stochanskyi.nanittask.presentation.utils.insets.onApplyDispatchInsetsToAllChildren
 import com.stochanskyi.nanittask.presentation.utils.insets.onApplyDispatchInsetsWithMargins
-import com.stochanskyi.nanittask.presentation.utils.setDrawableResIfMissing
-import com.stochanskyi.nanittask.presentation.utils.uriWithFileProvider
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -76,6 +76,10 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
 
         buttonBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        buttonShare.setOnClickListener {
+            shareAnniversaryImage()
         }
     }
 
@@ -138,6 +142,7 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
         val loader = imageLoader ?: requireContext().imageLoader
 
         binding.imageProfile.load(uri, loader) {
+            allowHardware(false)
             lifecycle(viewLifecycleOwner)
         }
     }
@@ -150,5 +155,19 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
     private fun onImagePickResult(result: Uri?) {
         result ?: return
         model.setImageUri(result.toString())
+    }
+
+    private fun shareAnniversaryImage() {
+        val file = fileProvider.shareAnniversaryFile()
+        file.writeBitmap(createShareBitmap())
+
+        val uri = file.uriWithFileProvider(context ?: return)
+        context?.launchSendIntent(uri)
+    }
+
+    private fun createShareBitmap(): Bitmap = with(binding) {
+        return layoutRoot.drawToBitmapWithExcludingInvisible(
+            listOf(imageCamera, buttonShare, buttonBack)
+        )
     }
 }
