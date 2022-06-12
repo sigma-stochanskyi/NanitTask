@@ -94,6 +94,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:padding="4dp"
+        android:scaleType="centerCrop"
         android:translationZ="-1dp"
         app:strokeWidth="8dp"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.NanitTask.Circle"
@@ -112,10 +113,11 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         app:icon="@drawable/ic_camera"
-        app:layout_constraintCircle="@id/image_profile"
-        app:layout_constraintCircleAngle="45"
-        tools:layout_constraintCircleRadius="130dp"
-        tools:backgroundTint="@color/birthday_background_blue_darker"/>
+        app:layout_constraintTop_toTopOf="@id/image_profile"
+        app:layout_constraintBottom_toBottomOf="@id/image_profile"
+        app:layout_constraintStart_toStartOf="@id/image_profile"
+        app:layout_constraintEnd_toEndOf="@id/image_profile"
+        tools:backgroundTint="@color/birthday_background_blue_darker" />
 
     <ImageView
         android:id="@+id/image_logo"
