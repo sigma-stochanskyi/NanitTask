@@ -17,6 +17,8 @@ import com.stochanskyi.nanittask.presentation.databinding.FragmentBirthdayBindin
 import com.stochanskyi.nanittask.presentation.ui.features.birthday.appearance.BirthdayViewAppearance
 import com.stochanskyi.nanittask.presentation.ui.features.birthday.model.BirthdayInfoViewData
 import com.stochanskyi.nanittask.presentation.utils.addSimpleOnLayoutChangeListener
+import com.stochanskyi.nanittask.presentation.utils.insets.onApplyDispatchInsetsToAllChildren
+import com.stochanskyi.nanittask.presentation.utils.insets.onApplyDispatchInsetsWithMargins
 import com.stochanskyi.nanittask.presentation.utils.setDrawableResIfMissing
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.sin
@@ -41,6 +43,7 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViews()
+        applyInsets()
         observeModel()
     }
 
@@ -56,6 +59,12 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
         buttonBack.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun applyInsets() = with(binding) {
+        root.onApplyDispatchInsetsToAllChildren()
+        buttonBack.onApplyDispatchInsetsWithMargins()
+        textTitle.onApplyDispatchInsetsWithMargins()
     }
 
     private fun observeModel() = with(model) {
