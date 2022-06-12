@@ -14,26 +14,31 @@ import com.stochanskyi.nanittask.presentation.utils.grantReadPermission
 class TakeOrPickImageContract(
     private val appContext: Context,
     @StringRes private val titleRes: Int
-) : ActivityResultContract<Uri, Result<Uri?>?>() {
+) : ActivityResultContract<Uri, Uri?>() {
+
+    private var cameraUri: Uri? = null
+
     override fun createIntent(context: Context, input: Uri): Intent {
+        cameraUri = input
         val intents = mutableListOf<Intent>()
 
         intents.addIfNotNull(context.createCameraIntent(input))
         intents.addIfNotNull(context.createGalleryPickerIntent())
 
-        return context.createIntentChooser(intents).apply {
-            putExtra("TESTETSTESA", "asjflnd")
-        }
+        return context.createIntentChooser(intents)
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Result<Uri?> {
+    override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
         if (resultCode != Activity.RESULT_OK) {
-            return Result.failure(TakeOrPickImageCanceledException())
+            return null
         }
 
         intent?.data?.grantReadPermission(appContext)
 
-        return Result.success(intent?.data)
+        val resultUri = intent?.data ?: cameraUri
+        cameraUri = null
+
+        return resultUri
     }
 
     private fun Context.createIntentChooser(intents: List<Intent>): Intent {
@@ -47,7 +52,5 @@ class TakeOrPickImageContract(
             putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.drop(1).toTypedArray())
         }
     }
-
-    class TakeOrPickImageCanceledException : Throwable()
 }
 

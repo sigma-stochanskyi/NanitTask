@@ -39,8 +39,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val fileProvider: AppFileProvider by inject()
 
-    private var cameraUri: Uri? = null
-
     private val getOrPickImageContract: TakeOrPickImageContract by inject { parametersOf(R.string.title_pick_image) }
 
     private val getOrPickImage =registerForActivityResult(getOrPickImageContract) {
@@ -137,14 +135,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun openImagePicker() {
-        cameraUri = fileProvider.cameraImageFile().uriWithFileProvider(requireContext())
-            .also { getOrPickImage.launch(it) }
+        val cameraUri = fileProvider.cameraImageFile().uriWithFileProvider(requireContext())
+
+        getOrPickImage.launch(cameraUri)
     }
 
-    private fun onImagePickResult(result: Result<Uri?>?) {
-        val uri = result?.getOrNull() ?: cameraUri ?: return
-
-        model.setImageUri(uri.toString())
+    private fun onImagePickResult(result: Uri?) {
+        result ?: return
+        model.setImageUri(result.toString())
     }
 
     private fun setDate(date: LocalDate?) {
