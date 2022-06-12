@@ -17,6 +17,19 @@
         tools:layout_editor_absoluteY="0dp"
         tools:src="@drawable/bg_birthday_blue" />
 
+    <com.google.android.material.button.MaterialButton
+        style="@style/ImageButton.BackButton"
+        android:id="@+id/button_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        app:strokeWidth="0dp"
+        app:iconGravity="textStart"
+        app:iconTint="@null"
+        app:icon="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         style="@style/BirthdayText"
         android:id="@+id/text_title"
@@ -108,7 +121,7 @@
         tools:src="@drawable/ic_profile_placeholder_blue" />
 
     <com.google.android.material.button.MaterialButton
-        style="@style/BirthdayCameraImage"
+        style="@style/ImageButton.BirthdayCameraImage"
         android:id="@+id/image_camera"
         android:layout_width="36dp"
         android:layout_height="36dp"

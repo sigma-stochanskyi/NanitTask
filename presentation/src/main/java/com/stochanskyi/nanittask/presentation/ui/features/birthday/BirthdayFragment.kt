@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.ImageLoader
 import coil.imageLoader
@@ -51,6 +52,10 @@ class BirthdayFragment : Fragment(R.layout.fragment_birthday) {
 
             imageCamera.translationX = translate
             imageCamera.translationY = -1 * translate
+        }
+
+        buttonBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

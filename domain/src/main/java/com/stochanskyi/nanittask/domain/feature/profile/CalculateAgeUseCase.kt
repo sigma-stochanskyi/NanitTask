@@ -13,8 +13,8 @@ class CalculateAgeUseCaseImpl : CalculateAgeUseCase {
     override fun invoke(birthday: LocalDate): Age {
         val currentDate = LocalDate.now()
 
-        val months = ChronoUnit.MONTHS.between(currentDate, birthday)
-        val years = ChronoUnit.YEARS.between(currentDate, birthday)
+        val months = ChronoUnit.MONTHS.between(birthday, currentDate)
+        val years = ChronoUnit.YEARS.between(birthday, currentDate)
 
         return Age(
             months = months.toInt(),
