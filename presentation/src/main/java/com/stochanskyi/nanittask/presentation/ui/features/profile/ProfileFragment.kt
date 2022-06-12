@@ -1,6 +1,5 @@
 package com.stochanskyi.nanittask.presentation.ui.features.profile
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -45,12 +44,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             onImagePickResult(it)
         }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        model.loadProfile()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        model.loadProfile()
         initViews()
         observeModel()
     }

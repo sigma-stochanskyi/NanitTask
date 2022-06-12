@@ -11,4 +11,6 @@ val UseCaseModule = module {
 
     factory<CalculateAgeUseCase> { CalculateAgeUseCaseImpl() }
 
+    factory<SetProfileImageUseCase> { SetProfileImageUseCaseImpl(get()) }
+
 }

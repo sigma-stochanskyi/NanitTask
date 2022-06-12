@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stochanskyi.nanittask.domain.feature.profile.CalculateAgeUseCase
 import com.stochanskyi.nanittask.domain.feature.profile.GetProfileUseCase
+import com.stochanskyi.nanittask.domain.feature.profile.SetProfileImageUseCase
 import com.stochanskyi.nanittask.domain.feature.profile.model.Age
 import com.stochanskyi.nanittask.presentation.R
 import com.stochanskyi.nanittask.presentation.ui.features.birthday.appearance.BirthdayViewAppearance
@@ -18,11 +19,14 @@ abstract class BirthdayViewModel : ViewModel() {
     abstract val nameLiveData: LiveData<String>
     abstract val ageInfoLiveData: LiveData<AgeInfoViewData>
     abstract val imageLiveData: LiveData<String?>
+
+    abstract fun setImageUri(imageUri: String)
 }
 
 class BirthdayViewModelImpl(
     private val getProfileUseCase: GetProfileUseCase,
     private val calculateAgeUseCase: CalculateAgeUseCase,
+    private val setProfileImageUseCase: SetProfileImageUseCase,
     private val viewAppearancesDefinition: BirthdayViewAppearancesDefinition,
 ) : BirthdayViewModel() {
 
@@ -30,11 +34,16 @@ class BirthdayViewModelImpl(
     override val nameLiveData = MutableLiveData<String>()
 
     override val ageInfoLiveData = MutableLiveData<AgeInfoViewData>()
-    override val imageLiveData = MutableLiveData<String>()
+    override val imageLiveData = MutableLiveData<String?>()
 
     init {
         setupViewAppearance()
         loadBirthdayInfo()
+    }
+
+    override fun setImageUri(imageUri: String) {
+        setProfileImageUseCase(imageUri)
+        imageLiveData.value = imageUri
     }
 
     private fun setupViewAppearance() {

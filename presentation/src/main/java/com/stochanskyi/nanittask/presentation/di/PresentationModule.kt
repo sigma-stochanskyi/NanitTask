@@ -14,7 +14,7 @@ val PresentationModule = module {
 
     viewModel<ProfileViewModel> { ProfileViewModelImpl(get(), get()) }
 
-    viewModel<BirthdayViewModel> { BirthdayViewModelImpl(get(), get(), get()) }
+    viewModel<BirthdayViewModel> { BirthdayViewModelImpl(get(), get(), get(), get()) }
 
     factory<BirthdayViewAppearancesDefinition> { BirthdayViewAppearancesDefinitionImpl() }
 
